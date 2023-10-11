@@ -11,6 +11,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
+import '../manager/weather_manager/weather_manager.dart' as _i4;
 import '../network/network.dart' as _i3;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -25,6 +26,8 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     gh.singleton<_i3.NetworkInterface>(_i3.Network());
+    gh.lazySingleton<_i4.WeatherManagerInterface>(
+        () => _i4.WeatherManager(gh<_i3.NetworkInterface>()));
     return this;
   }
 }

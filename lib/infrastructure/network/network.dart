@@ -7,6 +7,8 @@ import 'package:injectable/injectable.dart';
 abstract class NetworkInterface {
   String get baseUrl;
 
+  String get keyWeather;
+
   void setUp();
 
   Future<dynamic> request(Request requestModel);
@@ -17,7 +19,10 @@ class Network implements NetworkInterface {
   late Dio _dio;
 
   @override
-  String get baseUrl => "https://api.openweathermap.org";
+  String get baseUrl => "https://api.openweathermap.org/data/2.5/weather";
+
+  @override
+  String get keyWeather => "94abbb477e55d25ad2a4f47c767b76e9";
 
   Network() {
     setUp();
@@ -29,7 +34,8 @@ class Network implements NetworkInterface {
       ..interceptors
           .add(QueuedInterceptorsWrapper(onRequest: (options, handler) async {
         debugPrint(
-            "Start api: ${options.baseUrl}${options.path} with params: ${options.queryParameters}, data: ${options.data}");
+            "Start api: ${options.baseUrl}${options.path} with params: ${options.queryParameters}");
+        options.queryParameters.addAll({"appid": this.keyWeather});
         handler.next(options);
       }, onError: (error, handler) async {
         debugPrint(
@@ -44,10 +50,8 @@ class Network implements NetworkInterface {
 
   @override
   Future<dynamic> request(Request requestModel) async {
-    final formData = await requestModel.createFromData();
     Response response = await _dio.request(requestModel.path,
         queryParameters: requestModel.createParamQuery(),
-        data: formData ?? requestModel.createData(),
         options: Options(method: requestModel.method));
     return response.data;
   }

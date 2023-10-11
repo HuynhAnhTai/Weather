@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/infrastructure/common/asset_path/asset_path.dart';
+import 'package:weather/infrastructure/common/bloc/loading_bloc/loading_bloc.dart';
 import 'package:weather/infrastructure/common/color/colors.dart';
+import 'package:weather/infrastructure/injection_dependencies/injection_dependencies.dart';
+import 'package:weather/infrastructure/manager/weather_manager/weather_manager.dart';
 import 'package:weather/infrastructure/state/base_state.dart';
 import 'package:weather/infrastructure/view/view.dart';
 import 'package:weather/screen/fill_info_screen/fill_info_presenter.dart';
@@ -23,6 +27,8 @@ class FillInfoScreen extends StatefulWidget {
 
 class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
     implements FillInfoView {
+  String _info = "";
+
   @override
   void widgetDidBuild() {}
 
@@ -41,13 +47,13 @@ class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
           Text(this.localize.search_weather,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           const SizedBox(height: 20),
-          _textField(),
+          _fieldSearch(),
         ],
       ),
     );
   }
 
-  Widget _textField() => Container(
+  Widget _fieldSearch() => Container(
         margin: EdgeInsets.symmetric(
             horizontal: MediaQuery.sizeOf(context).width * 0.05),
         padding: const EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
@@ -71,6 +77,7 @@ class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s]'))
         ],
+        onChanged: (value) => this._info = value,
         decoration: InputDecoration(
             counterText: "",
             hintText: this.localize.hint_text_info,
@@ -84,6 +91,14 @@ class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
           backgroundColor: Colors.orange,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0))),
-      onPressed: () {},
+      onPressed: () async {
+        try {
+          BlocProvider.of<LoadingBloc>(context).showLoading();
+          await getIt.get<WeatherManagerInterface>().getWeather(this._info);
+          BlocProvider.of<LoadingBloc>(context).hideLoading();
+        } catch (e) {
+          BlocProvider.of<LoadingBloc>(context).hideLoading();
+        }
+      },
       child: Text(this.localize.search));
 }

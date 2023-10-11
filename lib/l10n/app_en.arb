@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "loading_wait": "loading",
+  "close": "close",
+  "search_weather": "Search Weather",
+  "search": "Search",
+  "hint_text_info": "City Name/Zip Code"
+}

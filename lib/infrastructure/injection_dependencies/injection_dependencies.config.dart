@@ -11,8 +11,9 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../manager/weather_manager/weather_manager.dart' as _i4;
-import '../network/network.dart' as _i3;
+import '../manager/connect_network_manager/connect_network_manager.dart' as _i3;
+import '../manager/weather_manager/weather_manager.dart' as _i5;
+import '../network/network.dart' as _i4;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -25,9 +26,11 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i3.NetworkInterface>(_i3.Network());
-    gh.lazySingleton<_i4.WeatherManagerInterface>(
-        () => _i4.WeatherManager(gh<_i3.NetworkInterface>()));
+    gh.singleton<_i3.ConnectNetworkMangerInterface>(
+        _i3.ConnectNetworkManager());
+    gh.singleton<_i4.NetworkInterface>(_i4.Network());
+    gh.lazySingleton<_i5.WeatherManagerInterface>(
+        () => _i5.WeatherManager(gh<_i4.NetworkInterface>()));
     return this;
   }
 }

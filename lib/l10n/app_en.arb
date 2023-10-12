@@ -12,5 +12,7 @@
   "wind_speed": "Wind Speed",
   "humidity": "Humidity",
   "visibility": "Visibility",
-  "try_again": "Try Again"
+  "try_again": "Try Again",
+  "connection_lost": "Connection has been lost",
+  "something_went_wrong": "Something went wrong"
 }

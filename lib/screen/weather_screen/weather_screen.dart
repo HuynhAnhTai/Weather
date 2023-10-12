@@ -43,16 +43,20 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
         builder: (context, state) {
           return state is WeatherLoadState
               ? _weatherInfo(state.weatherInfo)
-              : state is WeatherFailApiState
-                  ? ErrorSearchWidget(
-                      msg: state.errorMsg,
-                      onClickTryAgain: () =>
-                          this.getPresenter().loadDataWeather(this.widget.info))
+              : state is WeatherFailApiState || state is WeatherNoInternetState
+                  ? _errorSearchWidget(state is WeatherFailApiState
+                      ? state.errorMsg
+                      : this.localize.connection_lost)
                   : const SizedBox();
         },
       ),
     );
   }
+
+  Widget _errorSearchWidget(String msg) => ErrorSearchWidget(
+      msg: msg,
+      onClickTryAgain: () =>
+          this.getPresenter().loadDataWeather(this.widget.info));
 
   Widget _weatherInfo(WeatherInfoModel weatherInfo) => SingleChildScrollView(
         child: Padding(

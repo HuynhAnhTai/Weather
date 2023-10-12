@@ -17,7 +17,10 @@ class ErrorSearchWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(this.msg.toTitleCase(),
+          Text(
+              this.msg.isEmpty
+                  ? localize.something_went_wrong
+                  : this.msg.toTitleCase(),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge

@@ -25,3 +25,7 @@ class WeatherFailApiState extends WeatherState {
   @override
   List<Object?> get props => [this.errorMsg];
 }
+
+class WeatherNoInternetState extends WeatherState {
+  WeatherNoInternetState();
+}

@@ -21,6 +21,7 @@ dependencies:
   rxdart: ^0.27.7
   intl: any
   cached_network_image: ^3.2.3
+  connectivity_plus: ^4.0.2
 
 dev_dependencies:
   flutter_test:

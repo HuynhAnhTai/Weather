@@ -4,12 +4,12 @@ import 'package:weather/infrastructure/common/bloc/loading_bloc/loading_state.da
 
 class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
   LoadingBloc() : super(LoadingState(false)) {
-    on<LoadingEvent>((event, emit) {
-      if (event is LoadingShowEvent) {
-        emit(LoadingState(true));
-      } else if (event is LoadingHideEvent) {
-        emit(LoadingState(false));
-      }
+    on<LoadingShowEvent>((event, emit) {
+      emit(LoadingState(true));
+    });
+
+    on<LoadingHideEvent>((event, emit) {
+      emit(LoadingState(false));
     });
   }
 

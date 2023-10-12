@@ -10,10 +10,12 @@ _$$_SysModelImpl _$$$_SysModelImplFromJson(Map<String, dynamic> json) =>
     _$$_SysModelImpl(
       sunrise: json['sunrise'] as int,
       sunset: json['sunset'] as int,
+      country: json['country'] as String,
     );
 
 Map<String, dynamic> _$$$_SysModelImplToJson(_$$_SysModelImpl instance) =>
     <String, dynamic>{
       'sunrise': instance.sunrise,
       'sunset': instance.sunset,
+      'country': instance.country,
     };

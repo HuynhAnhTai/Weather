@@ -6,4 +6,6 @@ class AppColors {
   static Color white = Colors.white;
   static Color greyLight = const Color.fromRGBO(235, 235, 235, 1);
   static Color orange = Colors.orange;
+  static Color blueLight = const Color.fromRGBO(149, 205, 244, 1);
+  static Color grey = Colors.grey;
 }

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/infrastructure/common/asset_path/asset_path.dart';
-import 'package:weather/infrastructure/common/bloc/loading_bloc/loading_bloc.dart';
 import 'package:weather/infrastructure/common/color/colors.dart';
-import 'package:weather/infrastructure/injection_dependencies/injection_dependencies.dart';
-import 'package:weather/infrastructure/manager/weather_manager/weather_manager.dart';
 import 'package:weather/infrastructure/state/base_state.dart';
 import 'package:weather/infrastructure/view/view.dart';
 import 'package:weather/screen/fill_info_screen/fill_info_presenter.dart';
+import 'package:weather/screen/weather_screen/weather_screen.dart';
 
 class FillInfoScreen extends StatefulWidget {
   static final String NAME_SCREEN = "IndividualLoginScreen";
@@ -45,7 +42,8 @@ class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
           ),
           const SizedBox(height: 20),
           Text(this.localize.search_weather,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           const SizedBox(height: 20),
           _fieldSearch(),
         ],
@@ -91,14 +89,17 @@ class _FillInfoScreenState extends BaseState<FillInfoPresenter, FillInfoScreen>
           backgroundColor: Colors.orange,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0))),
-      onPressed: () async {
-        try {
-          BlocProvider.of<LoadingBloc>(context).showLoading();
-          await getIt.get<WeatherManagerInterface>().getWeather(this._info);
-          BlocProvider.of<LoadingBloc>(context).hideLoading();
-        } catch (e) {
-          BlocProvider.of<LoadingBloc>(context).hideLoading();
-        }
-      },
+      onPressed: () => _searchData(),
       child: Text(this.localize.search));
+
+  void _searchData() {
+    if (this._info.isEmpty) {
+      this
+          .getPresenter()
+          .showPopUp(this.localize.error, this.localize.data_empty);
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => WeatherScreen.create(this._info)));
+    }
+  }
 }

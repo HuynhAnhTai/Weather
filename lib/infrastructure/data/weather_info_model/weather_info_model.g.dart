@@ -21,6 +21,7 @@ _$$_WeatherInfoModelImpl _$$$_WeatherInfoModelImplFromJson(
       clouds: CloudModel.fromJson(json['clouds'] as Map<String, dynamic>),
       sys: SysModel.fromJson(json['sys'] as Map<String, dynamic>),
       name: json['name'] as String,
+      dt: json['dt'] as int,
     );
 
 Map<String, dynamic> _$$$_WeatherInfoModelImplToJson(
@@ -35,4 +36,5 @@ Map<String, dynamic> _$$$_WeatherInfoModelImplToJson(
       'clouds': instance.clouds,
       'sys': instance.sys,
       'name': instance.name,
+      'dt': instance.dt,
     };

@@ -166,16 +166,16 @@ class __$$$_MainInfoModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$$_MainInfoModelImpl
-    with DiagnosticableTreeMixin
-    implements $_MainInfoModel {
+class _$$_MainInfoModelImpl extends $_MainInfoModel
+    with DiagnosticableTreeMixin {
   const _$$_MainInfoModelImpl(
       {required this.temp,
       @JsonKey(name: "feels_like") required this.feelsLike,
       @JsonKey(name: "temp_min") required this.tempMin,
       @JsonKey(name: "temp_max") required this.tempMax,
       required this.pressure,
-      required this.humidity});
+      required this.humidity})
+      : super._();
 
   factory _$$_MainInfoModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$$_MainInfoModelImplFromJson(json);
@@ -250,7 +250,7 @@ class _$$_MainInfoModelImpl
   }
 }
 
-abstract class $_MainInfoModel implements MainInfoModel {
+abstract class $_MainInfoModel extends MainInfoModel {
   const factory $_MainInfoModel(
       {required final double temp,
       @JsonKey(name: "feels_like") required final double feelsLike,
@@ -258,6 +258,7 @@ abstract class $_MainInfoModel implements MainInfoModel {
       @JsonKey(name: "temp_max") required final double tempMax,
       required final int pressure,
       required final int humidity}) = _$$_MainInfoModelImpl;
+  const $_MainInfoModel._() : super._();
 
   factory $_MainInfoModel.fromJson(Map<String, dynamic> json) =
       _$$_MainInfoModelImpl.fromJson;

@@ -7,6 +7,6 @@ class GetWeatherByCityNameRequest extends Request {
 
   @override
   Map<String, dynamic> createParamQuery() {
-    return {"q": this.cityName};
+    return {"q": this.cityName, "units": "metric"};
   }
 }

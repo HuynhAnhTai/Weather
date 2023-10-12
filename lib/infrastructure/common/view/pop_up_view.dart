@@ -16,9 +16,8 @@ class PopUpView extends StatelessWidget {
     final localize = AppLocalizations.of(context)!;
     return CupertinoAlertDialog(
       title: Text(this.title, style: TextStyle(color: AppColors.black)),
-      content: Text(this.content,
-          style: TextStyle(color: AppColors.blackBit)),
-      actions: <Widget>[
+      content: Text(this.content, style: TextStyle(color: AppColors.blackBit)),
+      actions: [
         CupertinoDialogAction(
           isDefaultAction: true,
           onPressed: () {

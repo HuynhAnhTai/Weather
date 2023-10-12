@@ -15,14 +15,16 @@ part 'weather_info_model.g.dart';
 class WeatherInfoModel with _$WeatherInfoModel {
   const factory WeatherInfoModel(
       {@JsonKey(name: "coord") required CoordinateModel coordinate,
-      @JsonKey(name: "weather") required List<WeatherModel> weathers,
-      required String base,
-      @JsonKey(name: "main") required MainInfoModel mainInfo,
-      required int visibility,
-      required WindModel wind,
-      required CloudModel clouds,
-      required SysModel sys,
-      required String name}) = $_WeatherInfoModel;
+        @JsonKey(name: "weather") required List<WeatherModel> weathers,
+        required String base,
+        @JsonKey(name: "main") required MainInfoModel mainInfo,
+        required int visibility,
+        required WindModel wind,
+        required CloudModel clouds,
+        required SysModel sys,
+        required String name,
+        required int dt
+      }) = $_WeatherInfoModel;
 
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) =>
       _$WeatherInfoModelFromJson(json);

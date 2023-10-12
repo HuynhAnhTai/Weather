@@ -7,7 +7,7 @@ part 'sys_model.g.dart';
 
 @freezed
 class SysModel with _$SysModel {
-  const factory SysModel({required int sunrise, required int sunset}) =
+  const factory SysModel({required int sunrise, required int sunset, required String country}) =
       $_SysModel;
 
   factory SysModel.fromJson(Map<String, dynamic> json) =>

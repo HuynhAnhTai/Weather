@@ -1,0 +1,1 @@
+enum SunType { sunrise, sunset }

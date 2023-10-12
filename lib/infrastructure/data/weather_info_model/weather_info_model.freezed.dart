@@ -32,6 +32,7 @@ mixin _$WeatherInfoModel {
   CloudModel get clouds => throw _privateConstructorUsedError;
   SysModel get sys => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get dt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +55,8 @@ abstract class $WeatherInfoModelCopyWith<$Res> {
       WindModel wind,
       CloudModel clouds,
       SysModel sys,
-      String name});
+      String name,
+      int dt});
 
   $CoordinateModelCopyWith<$Res> get coordinate;
   $MainInfoModelCopyWith<$Res> get mainInfo;
@@ -85,6 +87,7 @@ class _$WeatherInfoModelCopyWithImpl<$Res, $Val extends WeatherInfoModel>
     Object? clouds = null,
     Object? sys = null,
     Object? name = null,
+    Object? dt = null,
   }) {
     return _then(_value.copyWith(
       coordinate: null == coordinate
@@ -123,6 +126,10 @@ class _$WeatherInfoModelCopyWithImpl<$Res, $Val extends WeatherInfoModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      dt: null == dt
+          ? _value.dt
+          : dt // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -184,7 +191,8 @@ abstract class _$$$_WeatherInfoModelImplCopyWith<$Res>
       WindModel wind,
       CloudModel clouds,
       SysModel sys,
-      String name});
+      String name,
+      int dt});
 
   @override
   $CoordinateModelCopyWith<$Res> get coordinate;
@@ -218,6 +226,7 @@ class __$$$_WeatherInfoModelImplCopyWithImpl<$Res>
     Object? clouds = null,
     Object? sys = null,
     Object? name = null,
+    Object? dt = null,
   }) {
     return _then(_$$_WeatherInfoModelImpl(
       coordinate: null == coordinate
@@ -256,6 +265,10 @@ class __$$$_WeatherInfoModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      dt: null == dt
+          ? _value.dt
+          : dt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -274,7 +287,8 @@ class _$$_WeatherInfoModelImpl
       required this.wind,
       required this.clouds,
       required this.sys,
-      required this.name})
+      required this.name,
+      required this.dt})
       : _weathers = weathers;
 
   factory _$$_WeatherInfoModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -307,10 +321,12 @@ class _$$_WeatherInfoModelImpl
   final SysModel sys;
   @override
   final String name;
+  @override
+  final int dt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'WeatherInfoModel(coordinate: $coordinate, weathers: $weathers, base: $base, mainInfo: $mainInfo, visibility: $visibility, wind: $wind, clouds: $clouds, sys: $sys, name: $name)';
+    return 'WeatherInfoModel(coordinate: $coordinate, weathers: $weathers, base: $base, mainInfo: $mainInfo, visibility: $visibility, wind: $wind, clouds: $clouds, sys: $sys, name: $name, dt: $dt)';
   }
 
   @override
@@ -326,7 +342,8 @@ class _$$_WeatherInfoModelImpl
       ..add(DiagnosticsProperty('wind', wind))
       ..add(DiagnosticsProperty('clouds', clouds))
       ..add(DiagnosticsProperty('sys', sys))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('dt', dt));
   }
 
   @override
@@ -345,7 +362,8 @@ class _$$_WeatherInfoModelImpl
             (identical(other.wind, wind) || other.wind == wind) &&
             (identical(other.clouds, clouds) || other.clouds == clouds) &&
             (identical(other.sys, sys) || other.sys == sys) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.dt, dt) || other.dt == dt));
   }
 
   @JsonKey(ignore: true)
@@ -360,7 +378,8 @@ class _$$_WeatherInfoModelImpl
       wind,
       clouds,
       sys,
-      name);
+      name,
+      dt);
 
   @JsonKey(ignore: true)
   @override
@@ -387,7 +406,8 @@ abstract class $_WeatherInfoModel implements WeatherInfoModel {
       required final WindModel wind,
       required final CloudModel clouds,
       required final SysModel sys,
-      required final String name}) = _$$_WeatherInfoModelImpl;
+      required final String name,
+      required final int dt}) = _$$_WeatherInfoModelImpl;
 
   factory $_WeatherInfoModel.fromJson(Map<String, dynamic> json) =
       _$$_WeatherInfoModelImpl.fromJson;
@@ -413,6 +433,8 @@ abstract class $_WeatherInfoModel implements WeatherInfoModel {
   SysModel get sys;
   @override
   String get name;
+  @override
+  int get dt;
   @override
   @JsonKey(ignore: true)
   _$$$_WeatherInfoModelImplCopyWith<_$$_WeatherInfoModelImpl> get copyWith =>

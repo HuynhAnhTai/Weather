@@ -7,6 +7,6 @@ class GetWeatherByZipCodeRequest extends Request {
 
   @override
   Map<String, dynamic> createParamQuery() {
-    return {"zip": this.zipCode};
+    return {"zip": this.zipCode, "units": "metric"};
   }
 }

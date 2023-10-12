@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
   static GlobalKey<NavigatorState> keyMyApp =
       GlobalKey<NavigatorState>(debugLabel: "keyMyApp");
 
-  const MyApp._();
+  const MyApp({super.key});
 
   static Widget create() {
-    return ViewApp(child: const MyApp._(), presenter: MyAppPresenter());
+    return ViewApp(child: const MyApp(), presenter: MyAppPresenter());
   }
 
   @override
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                 displayColor: AppColors.black,
               ),
           appBarTheme: AppBarTheme(
-              color: AppColors.white,
+              color: AppColors.greyLight,
               elevation: 0,
               titleTextStyle: TextStyle(
                   color: AppColors.black,

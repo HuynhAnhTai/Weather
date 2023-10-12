@@ -22,6 +22,7 @@ SysModel _$SysModelFromJson(Map<String, dynamic> json) {
 mixin _$SysModel {
   int get sunrise => throw _privateConstructorUsedError;
   int get sunset => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $SysModelCopyWith<$Res> {
   factory $SysModelCopyWith(SysModel value, $Res Function(SysModel) then) =
       _$SysModelCopyWithImpl<$Res, SysModel>;
   @useResult
-  $Res call({int sunrise, int sunset});
+  $Res call({int sunrise, int sunset, String country});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$SysModelCopyWithImpl<$Res, $Val extends SysModel>
   $Res call({
     Object? sunrise = null,
     Object? sunset = null,
+    Object? country = null,
   }) {
     return _then(_value.copyWith(
       sunrise: null == sunrise
@@ -62,6 +64,10 @@ class _$SysModelCopyWithImpl<$Res, $Val extends SysModel>
           ? _value.sunset
           : sunset // ignore: cast_nullable_to_non_nullable
               as int,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -74,7 +80,7 @@ abstract class _$$$_SysModelImplCopyWith<$Res>
       __$$$_SysModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int sunrise, int sunset});
+  $Res call({int sunrise, int sunset, String country});
 }
 
 /// @nodoc
@@ -90,6 +96,7 @@ class __$$$_SysModelImplCopyWithImpl<$Res>
   $Res call({
     Object? sunrise = null,
     Object? sunset = null,
+    Object? country = null,
   }) {
     return _then(_$$_SysModelImpl(
       sunrise: null == sunrise
@@ -100,6 +107,10 @@ class __$$$_SysModelImplCopyWithImpl<$Res>
           ? _value.sunset
           : sunset // ignore: cast_nullable_to_non_nullable
               as int,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,7 +118,8 @@ class __$$$_SysModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$$_SysModelImpl with DiagnosticableTreeMixin implements $_SysModel {
-  const _$$_SysModelImpl({required this.sunrise, required this.sunset});
+  const _$$_SysModelImpl(
+      {required this.sunrise, required this.sunset, required this.country});
 
   factory _$$_SysModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$$_SysModelImplFromJson(json);
@@ -116,10 +128,12 @@ class _$$_SysModelImpl with DiagnosticableTreeMixin implements $_SysModel {
   final int sunrise;
   @override
   final int sunset;
+  @override
+  final String country;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SysModel(sunrise: $sunrise, sunset: $sunset)';
+    return 'SysModel(sunrise: $sunrise, sunset: $sunset, country: $country)';
   }
 
   @override
@@ -128,7 +142,8 @@ class _$$_SysModelImpl with DiagnosticableTreeMixin implements $_SysModel {
     properties
       ..add(DiagnosticsProperty('type', 'SysModel'))
       ..add(DiagnosticsProperty('sunrise', sunrise))
-      ..add(DiagnosticsProperty('sunset', sunset));
+      ..add(DiagnosticsProperty('sunset', sunset))
+      ..add(DiagnosticsProperty('country', country));
   }
 
   @override
@@ -137,12 +152,13 @@ class _$$_SysModelImpl with DiagnosticableTreeMixin implements $_SysModel {
         (other.runtimeType == runtimeType &&
             other is _$$_SysModelImpl &&
             (identical(other.sunrise, sunrise) || other.sunrise == sunrise) &&
-            (identical(other.sunset, sunset) || other.sunset == sunset));
+            (identical(other.sunset, sunset) || other.sunset == sunset) &&
+            (identical(other.country, country) || other.country == country));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, sunrise, sunset);
+  int get hashCode => Object.hash(runtimeType, sunrise, sunset, country);
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +177,8 @@ class _$$_SysModelImpl with DiagnosticableTreeMixin implements $_SysModel {
 abstract class $_SysModel implements SysModel {
   const factory $_SysModel(
       {required final int sunrise,
-      required final int sunset}) = _$$_SysModelImpl;
+      required final int sunset,
+      required final String country}) = _$$_SysModelImpl;
 
   factory $_SysModel.fromJson(Map<String, dynamic> json) =
       _$$_SysModelImpl.fromJson;
@@ -170,6 +187,8 @@ abstract class $_SysModel implements SysModel {
   int get sunrise;
   @override
   int get sunset;
+  @override
+  String get country;
   @override
   @JsonKey(ignore: true)
   _$$$_SysModelImplCopyWith<_$$_SysModelImpl> get copyWith =>

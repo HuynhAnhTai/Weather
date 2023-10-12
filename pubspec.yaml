@@ -20,6 +20,7 @@ dependencies:
   uuid: ^3.0.7
   rxdart: ^0.27.7
   intl: any
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

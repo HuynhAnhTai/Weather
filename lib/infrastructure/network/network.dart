@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:weather/infrastructure/data/error_api_model/error_api_model.dart';
 import 'package:weather/infrastructure/network/request.dart';
 import 'package:injectable/injectable.dart';
 
@@ -40,6 +41,11 @@ class Network implements NetworkInterface {
       }, onError: (error, handler) async {
         debugPrint(
             "Error api ${error.requestOptions.method} ${error.requestOptions.path} - ${error.requestOptions.path}: ${error.response} - ${error.error}");
+        if (error.response?.data is Map) {
+          if ((error.response?.data as Map).containsKey("cod")) {
+            error.response?.data = ErrorApiModel.fromJson(error.response?.data);
+          }
+        }
         handler.next(error);
       }, onResponse: (response, handler) {
         debugPrint(

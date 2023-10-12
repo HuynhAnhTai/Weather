@@ -6,10 +6,11 @@
   "search": "Search",
   "hint_text_info": "City Name/Zip Code",
   "error": "Error",
-  "data_empty": "Your place shouldn't empty",
+  "data_empty": "Your place shouldn't be empty",
   "unknown": "Unknown",
   "pressure": "Pressure",
   "wind_speed": "Wind Speed",
   "humidity": "Humidity",
-  "visibility": "Visibility"
+  "visibility": "Visibility",
+  "try_again": "Try Again"
 }

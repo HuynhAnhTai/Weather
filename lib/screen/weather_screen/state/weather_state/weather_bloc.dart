@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/infrastructure/common/bloc/loading_bloc/loading_bloc.dart';
+import 'package:weather/infrastructure/data/error_api_model/error_api_model.dart';
 import 'package:weather/infrastructure/injection_dependencies/injection_dependencies.dart';
 import 'package:weather/infrastructure/manager/weather_manager/weather_manager.dart';
 import 'package:weather/screen/weather_screen/state/weather_state/weather_event.dart';
@@ -31,6 +32,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       this._loadingBloc.hideLoading();
       if (e is DioException) {
         final response = e.response;
+        if (response?.data is ErrorApiModel) {
+          emit(WeatherFailApiState((response?.data as ErrorApiModel).message));
+        }
       }
     }
   }

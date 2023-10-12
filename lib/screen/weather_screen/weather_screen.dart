@@ -10,6 +10,7 @@ import 'package:weather/infrastructure/state/base_state.dart';
 import 'package:weather/infrastructure/view/view.dart';
 import 'package:weather/screen/weather_screen/state/weather_state/weather_bloc.dart';
 import 'package:weather/screen/weather_screen/weather_presenter.dart';
+import 'package:weather/screen/weather_screen/widget/error_search_widget.dart';
 import 'package:weather/screen/weather_screen/widget/title_and_value_widget.dart';
 import 'package:weather/screen/weather_screen/widget/weather_symbol_widget.dart';
 
@@ -42,7 +43,12 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
         builder: (context, state) {
           return state is WeatherLoadState
               ? _weatherInfo(state.weatherInfo)
-              : const SizedBox();
+              : state is WeatherFailApiState
+                  ? ErrorSearchWidget(
+                      msg: state.errorMsg,
+                      onClickTryAgain: () =>
+                          this.getPresenter().loadDataWeather(this.widget.info))
+                  : const SizedBox();
         },
       ),
     );

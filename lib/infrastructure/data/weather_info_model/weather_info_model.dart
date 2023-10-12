@@ -23,7 +23,8 @@ class WeatherInfoModel with _$WeatherInfoModel {
         required CloudModel clouds,
         required SysModel sys,
         required String name,
-        required int dt
+        required int dt,
+        required int timezone
       }) = $_WeatherInfoModel;
 
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) =>

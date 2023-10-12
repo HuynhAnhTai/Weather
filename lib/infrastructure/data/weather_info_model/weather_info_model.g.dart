@@ -22,6 +22,7 @@ _$$_WeatherInfoModelImpl _$$$_WeatherInfoModelImplFromJson(
       sys: SysModel.fromJson(json['sys'] as Map<String, dynamic>),
       name: json['name'] as String,
       dt: json['dt'] as int,
+      timezone: json['timezone'] as int,
     );
 
 Map<String, dynamic> _$$$_WeatherInfoModelImplToJson(
@@ -37,4 +38,5 @@ Map<String, dynamic> _$$$_WeatherInfoModelImplToJson(
       'sys': instance.sys,
       'name': instance.name,
       'dt': instance.dt,
+      'timezone': instance.timezone,
     };

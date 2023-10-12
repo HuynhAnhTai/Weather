@@ -59,7 +59,7 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _nameLocation(weatherInfo.name),
-              _time(weatherInfo.dt),
+              _time(weatherInfo.dt, weatherInfo.timezone),
               _weather(weatherInfo.weathers, weatherInfo.mainInfo),
               const SizedBox(height: 30),
               _titleAndValue(
@@ -78,8 +78,10 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _timeSun(SunType.sunrise, weatherInfo.sys.sunrise),
-                  _timeSun(SunType.sunset, weatherInfo.sys.sunset)
+                  _timeSun(SunType.sunrise, weatherInfo.sys.sunrise,
+                      weatherInfo.timezone),
+                  _timeSun(SunType.sunset, weatherInfo.sys.sunset,
+                      weatherInfo.timezone)
                 ],
               )
             ],
@@ -174,9 +176,9 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
           fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
       maxLines: 2);
 
-  Widget _time(int dt) {
+  Widget _time(int dt, int timezone) {
     final DateTime time =
-        DateTime.fromMillisecondsSinceEpoch(dt * 1000).toUtc();
+        DateTime.fromMillisecondsSinceEpoch((dt + timezone) * 1000).toUtc();
     final formatTime = DateFormat('HH:mm').format(time);
     final formatDate = DateFormat('dd.MM.yyyy').format(time);
     return Row(
@@ -188,9 +190,10 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
     );
   }
 
-  Widget _timeSun(SunType sunType, int timeValue) {
+  Widget _timeSun(SunType sunType, int timeValue, int timezone) {
     final DateTime time =
-        DateTime.fromMillisecondsSinceEpoch(timeValue * 1000).toUtc();
+        DateTime.fromMillisecondsSinceEpoch((timeValue + timezone) * 1000)
+            .toUtc();
     final formatTime = DateFormat('HH:mm').format(time);
     return Column(
       children: [

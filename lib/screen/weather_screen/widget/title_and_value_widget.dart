@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather/infrastructure/data/unit_weather_enum/unit_weather_enum.dart';
 
 class TitleAndValueWidget extends StatelessWidget {
@@ -14,18 +15,20 @@ class TitleAndValueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final numberFormat = NumberFormat.decimalPattern("en_us");
+    final valueString = numberFormat.format(this.value);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("${this.title}:",
+          Text(this.title,
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold)),
           Text(
-              "${this.value.toStringAsFixed(this.value % 1 == 0 ? 0 : 1)}${this.unit == UnitWeather.humidity ? "" : " "}${this.unit.unit}",
+              "$valueString${this.unit == UnitWeather.humidity ? "" : " "}${this.unit.unit}",
               style: Theme.of(context).textTheme.headlineSmall),
         ],
       ),

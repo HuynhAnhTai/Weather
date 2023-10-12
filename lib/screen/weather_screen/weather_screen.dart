@@ -38,7 +38,14 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  this.getPresenter().loadDataWeather(this.widget.info),
+              icon: const Icon(Icons.refresh))
+        ],
+      ),
       body: BlocBuilder<WeatherBloc, WeatherState>(
         builder: (context, state) {
           return state is WeatherLoadState
@@ -59,6 +66,7 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
           this.getPresenter().loadDataWeather(this.widget.info));
 
   Widget _weatherInfo(WeatherInfoModel weatherInfo) => SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
@@ -98,7 +106,8 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
                   _timeSun(SunType.sunset, weatherInfo.sys.sunset,
                       weatherInfo.timezone)
                 ],
-              )
+              ),
+              const SizedBox(height: 20)
             ],
           ),
         ),

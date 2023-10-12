@@ -1,21 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/infrastructure/common/asset_path/asset_path.dart';
-import 'package:weather/infrastructure/common/color/colors.dart';
-import 'package:weather/infrastructure/common/extension/string_extension.dart';
 import 'package:weather/infrastructure/common/helper/util_helper.dart';
-import 'package:weather/infrastructure/data/main_info_model/main_info_model.dart';
 import 'package:weather/infrastructure/data/type_sun_enum/sun_type_enum.dart';
 import 'package:weather/infrastructure/data/unit_weather_enum/unit_weather_enum.dart';
 import 'package:weather/infrastructure/data/weather_info_model/weather_info_model.dart';
-import 'package:weather/infrastructure/data/weather_model/weather_model.dart';
 import 'package:weather/infrastructure/state/base_state.dart';
 import 'package:weather/infrastructure/view/view.dart';
-import 'package:weather/screen/weather_screen/state/temperature_state/temperature_cubit.dart';
 import 'package:weather/screen/weather_screen/state/weather_state/weather_bloc.dart';
 import 'package:weather/screen/weather_screen/weather_presenter.dart';
+import 'package:weather/screen/weather_screen/widget/title_and_value_widget.dart';
+import 'package:weather/screen/weather_screen/widget/weather_symbol_widget.dart';
 
 class WeatherScreen extends StatefulWidget {
   final String info;
@@ -60,20 +56,29 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
             children: [
               _nameLocation(weatherInfo.name),
               _time(weatherInfo.dt, weatherInfo.timezone),
-              _weather(weatherInfo.weathers, weatherInfo.mainInfo),
+              WeatherSymbolWidget(
+                  weathers: weatherInfo.weathers,
+                  mainInfo: weatherInfo.mainInfo,
+                  onChangeUnit: (temperatureType) => this
+                      .getPresenter()
+                      .changeTypeTemperature(temperatureType)),
               const SizedBox(height: 30),
-              _titleAndValue(
-                  this.localize.pressure,
-                  weatherInfo.mainInfo.pressure.toDouble(),
-                  UnitWeather.pressure),
-              _titleAndValue(this.localize.wind_speed, weatherInfo.wind.speed,
-                  UnitWeather.windSpeed),
-              _titleAndValue(
-                  this.localize.humidity,
-                  weatherInfo.mainInfo.humidity.toDouble(),
-                  UnitWeather.humidity),
-              _titleAndValue(this.localize.visibility,
-                  weatherInfo.visibility.toDouble(), UnitWeather.visibility),
+              TitleAndValueWidget(
+                  title: this.localize.pressure,
+                  value: weatherInfo.mainInfo.pressure.toDouble(),
+                  unit: UnitWeather.pressure),
+              TitleAndValueWidget(
+                  title: this.localize.wind_speed,
+                  value: weatherInfo.wind.speed,
+                  unit: UnitWeather.windSpeed),
+              TitleAndValueWidget(
+                  title: this.localize.humidity,
+                  value: weatherInfo.mainInfo.humidity.toDouble(),
+                  unit: UnitWeather.humidity),
+              TitleAndValueWidget(
+                  title: this.localize.visibility,
+                  value: weatherInfo.visibility.toDouble(),
+                  unit: UnitWeather.visibility),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -89,96 +94,13 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
         ),
       );
 
-  Widget _weather(List<WeatherModel> weathers, MainInfoModel mainInfo) =>
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(children: [
-                _imageWeather(weathers),
-                const SizedBox(width: 10),
-                _temperature(mainInfo),
-              ]),
-              const SizedBox(height: 20),
-              Text(
-                  weathers.isNotEmpty
-                      ? weathers.first.description.toTitleCase()
-                      : this.localize.unknown,
-                  style: Theme.of(context).textTheme.headlineSmall),
-            ],
-          ));
-
-  Widget _titleAndValue(String title, double value, UnitWeather unit) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("$title:",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-            Text(
-                "${value.toStringAsFixed(value % 1 == 0 ? 0 : 1)}${unit == UnitWeather.humidity ? "" : " "}${unit.unit}",
-                style: Theme.of(context).textTheme.headlineSmall),
-          ],
-        ),
-      );
-
-  Widget _temperature(MainInfoModel mainInfo) =>
-      BlocBuilder<TemperatureCubit, TemperatureType>(
-        builder: (context, temperatureType) {
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-                mainInfo.getValueTempByUnit(temperatureType).toStringAsFixed(0),
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.displaySmall),
-            _unitTemperature(TemperatureType.metric,
-                temperatureType == TemperatureType.metric),
-            SizedBox(
-                height: 16,
-                child: VerticalDivider(
-                    width: 10, thickness: 2, color: AppColors.grey)),
-            _unitTemperature(TemperatureType.imperial,
-                temperatureType == TemperatureType.imperial),
-          ]);
-        },
-      );
-
-  Widget _unitTemperature(TemperatureType temperatureType, bool isChoose) =>
-      GestureDetector(
-        onTap: () => this.getPresenter().changeTypeTemperature(temperatureType),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Text(UtilHelper.getUnitTemperature(temperatureType),
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: isChoose ? AppColors.black : AppColors.grey,
-                  fontSize: 16)),
-        ),
-      );
-
-  Widget _imageWeather(List<WeatherModel> weathers) => CircleAvatar(
-        radius: MediaQuery.sizeOf(context).width * 0.15,
-        foregroundImage: weathers.isEmpty
-            ? null
-            : CachedNetworkImageProvider(
-                UtilHelper.getUrlIcon(weathers.first.icon)),
-        backgroundImage:
-            weathers.isEmpty ? AssetImage(AssetPath.icCloudy) : null,
-        backgroundColor: AppColors.blueLight,
-      );
-
   Widget _nameLocation(String name) => Text(name,
       style: Theme.of(context).textTheme.displayMedium?.copyWith(
           fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
       maxLines: 2);
 
   Widget _time(int dt, int timezone) {
-    final DateTime time =
-        DateTime.fromMillisecondsSinceEpoch((dt + timezone) * 1000).toUtc();
+    final DateTime time = UtilHelper.getTimeOfTimeZone(dt, timezone);
     final formatTime = DateFormat('HH:mm').format(time);
     final formatDate = DateFormat('dd.MM.yyyy').format(time);
     return Row(
@@ -191,9 +113,7 @@ class _WeatherScreenState extends BaseState<WeatherPresenter, WeatherScreen>
   }
 
   Widget _timeSun(SunType sunType, int timeValue, int timezone) {
-    final DateTime time =
-        DateTime.fromMillisecondsSinceEpoch((timeValue + timezone) * 1000)
-            .toUtc();
+    final DateTime time = UtilHelper.getTimeOfTimeZone(timeValue, timezone);
     final formatTime = DateFormat('HH:mm').format(time);
     return Column(
       children: [

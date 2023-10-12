@@ -13,4 +13,9 @@ class UtilHelper {
         return "°F";
     }
   }
+
+  static DateTime getTimeOfTimeZone(int time, int timezone) {
+    return DateTime.fromMillisecondsSinceEpoch((time + timezone) * 1000)
+        .toUtc();
+  }
 }

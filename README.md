@@ -1,5 +1,5 @@
 # Overview
-A weather app is a tool that helps us monitor the weather for a specific location using either a city name or a zip code.
+A weather app is a tool that helps us monitoring the weather for a specific location using either a city name or a zip code.
 
 # Features
 * Retrieve the weather for a particular location by inputting either the city name or the zip code.
@@ -37,14 +37,14 @@ In folder ```lib``` of project, I separate it to 3 parts
      * ```color``` - Including all colors in app
      * ```extension``` - Including all extensions type in app
      * ```helper``` - Including all files helper in app
-     * ```view``` - Including UI which use common in app
-   * ```data``` - Including file related to model
+     * ```view``` - Including UI which use commonly in app
+   * ```data``` - Including all files related to model
    * ```injection_dependencies``` - It was automatically generated upon registering dependency injection
-   * ```manager``` - Including all files related to manage data, like call api and map data json to model
+   * ```manager``` - Including all files related to manage data, such as API calls and JSON-to-model data mapping.
    * ```network``` - Place to config api, end point
    * ```presenter``` - Containing a base layer presenter for each screen
    * ```state``` - Containing a base state for each statefull screen
-   * ```view_app``` - Containing a file to connect between view and presenter and init BloC for each screen
+   * ```view_app``` - Containing a file to connect between view, presenter and init BloC for each screen
 ## 2. Folder ```l10```
 Contains all localizes in app
 ## 3. Folder ```screen```

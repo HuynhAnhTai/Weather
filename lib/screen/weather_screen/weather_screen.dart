@@ -7,7 +7,7 @@ import 'package:weather/infrastructure/data/type_sun_enum/sun_type_enum.dart';
 import 'package:weather/infrastructure/data/unit_weather_enum/unit_weather_enum.dart';
 import 'package:weather/infrastructure/data/weather_info_model/weather_info_model.dart';
 import 'package:weather/infrastructure/state/base_state.dart';
-import 'package:weather/infrastructure/view/view.dart';
+import 'package:weather/infrastructure/view_app/view_app.dart';
 import 'package:weather/screen/weather_screen/state/weather_state/weather_bloc.dart';
 import 'package:weather/screen/weather_screen/weather_presenter.dart';
 import 'package:weather/screen/weather_screen/widget/error_search_widget.dart';

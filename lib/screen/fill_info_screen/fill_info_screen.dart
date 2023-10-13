@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:weather/infrastructure/common/asset_path/asset_path.dart';
 import 'package:weather/infrastructure/common/color/colors.dart';
 import 'package:weather/infrastructure/state/base_state.dart';
-import 'package:weather/infrastructure/view/view.dart';
+import 'package:weather/infrastructure/view_app/view_app.dart';
 import 'package:weather/screen/fill_info_screen/fill_info_presenter.dart';
 import 'package:weather/screen/weather_screen/weather_screen.dart';
 

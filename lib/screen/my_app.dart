@@ -5,7 +5,7 @@ import 'package:weather/infrastructure/common/bloc/popup_bloc/popup_state.dart';
 import 'package:weather/infrastructure/common/color/colors.dart';
 import 'package:weather/infrastructure/common/view/loading_view.dart';
 import 'package:weather/infrastructure/common/view/pop_up_view.dart';
-import 'package:weather/infrastructure/view/view.dart';
+import 'package:weather/infrastructure/view_app/view_app.dart';
 import 'package:weather/screen/fill_info_screen/fill_info_screen.dart';
 import 'package:weather/screen/my_app_presenter.dart';
 import 'package:flutter/material.dart';

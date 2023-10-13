@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather/infrastructure/data/weather_info_model/weather_info_model.dart';
 import 'package:weather/infrastructure/manager/weather_manager/request/get_weather_by_city_name_request.dart';
@@ -22,6 +23,6 @@ class WeatherManager implements WeatherManagerInterface {
         ? GetWeatherByCityNameRequest(info)
         : GetWeatherByZipCodeRequest(int.parse(info));
     final response = await this.network.request(request);
-    return WeatherInfoModel.fromJson(response);
+    return compute((message) => WeatherInfoModel.fromJson(response), "");
   }
 }
